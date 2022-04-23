@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'relationships/followings'
-  get 'relationships/followers'
 
   root :to =>"homes#top"
   get "home/about"=>"homes#about"
@@ -13,10 +11,15 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index,:show,:edit,:update]
 
+  get 'relationships/followings'
+  get 'relationships/followers'
+
   resources :users do
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
   end
+
+  get "search" => "searches#search"
 
 end
