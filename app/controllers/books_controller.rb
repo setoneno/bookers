@@ -9,18 +9,19 @@ class BooksController < ApplicationController
   end
 
   def index
-    to  = Time.current.at_end_of_day
-    from  = (to - 6.day).at_beginning_of_day
+    to = Time.current.at_end_of_day
+    from = (to - 6.day).at_beginning_of_day
     @books = Book.includes(:favorited_users).
-      sort {|a,b|
+      sort do |a, b|
         b.favorited_users.includes(:favorites).where(created_at: from...to).size <=>
         a.favorited_users.includes(:favorites).where(created_at: from...to).size
-      }
+      end
     @book = Book.new
   end
 
   def create
     @book = Book.new(book_params)
+    byebug
     @book.user = current_user
     if @book.save
       redirect_to book_path(@book), notice: "You have created book successfully."
