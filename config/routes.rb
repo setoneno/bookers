@@ -12,16 +12,16 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create, :destroy]
   end
 
-  resources :users, only: [:index, :show, :edit, :update]
-
   get 'relationships/followings'
   get 'relationships/followers'
 
-  resources :users do
+  resources :users, only: [:index, :show, :edit, :update] do
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
   end
+
+  resources :chats, only: [:show, :create]
 
   get "search" => "searches#search"
 end
