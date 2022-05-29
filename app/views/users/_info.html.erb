@@ -26,9 +26,11 @@
   <% end %>
 </div>
 <% end %>
+<div class="form-group">
 <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
-  <%= link_to 'chatを始める', chat_path(user.id), class: "ml-3" %>
+  <%= link_to 'chatを始める', chat_path(user.id), class: 'btn btn-success' %>
 <% end %>
+</div>
 <% if user.name != "guestuser" %>
   <div class='row'>
     <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
