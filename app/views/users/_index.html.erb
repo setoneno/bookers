@@ -15,9 +15,9 @@
         <td>フォロワー数 : <%= user.followers.count %></td>
         <% unless current_user == user %>
           <% if current_user.following?(user) %>
-            <td><%= link_to "フォロー外す", user_relationships_path(user.id), method: :delete %></td>
+            <td id="follow_buttons_<%= user.id %>"><%= link_to "フォロー外す", user_relationships_path(user.id), method: :delete, remote: true %></td>
           <% else %>
-            <td><%= link_to "フォローする", user_relationships_path(user.id), method: :post %></td>
+            <td id="follow_buttons_<%= user.id %>"><%= link_to "フォローする", user_relationships_path(user.id), method: :post, remote: true %></td>
           <% end %>
         <% else %>
           <td></td>
